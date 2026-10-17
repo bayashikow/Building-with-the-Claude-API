@@ -1,0 +1,9 @@
+# API key and local settings
+.env
+
+# Python virtual environment
+.venv/
+
+# Python / Jupyter caches
+__pycache__/
+.ipynb_checkpoints/
