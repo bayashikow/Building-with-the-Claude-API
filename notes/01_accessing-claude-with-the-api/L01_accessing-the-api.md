@@ -1,6 +1,6 @@
 # L01 APIへのアクセス(Accessing the API)
 
-- コース: Claude APIを使った構築(Building with the Claude API)/ セクション1「Claude APIへのアクセス」
+- コース: Claude APIを使った構築(Building with the Claude API)/ セクション1「APIを使ったClaudeへのアクセス」
 - 出典: https://academy.claude.com/ja/courses/building-with-the-claude-api/accessing-the-api (Claude Academy 日本語版、レッスン1/67、3分)
 - 読んだ日: 2026-10-17
 - 凡例: 特に印のない記述は、ページ本文の内容。【補足】は、ページ外の内容(私=Claudeの補足)。

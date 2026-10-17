@@ -11,6 +11,7 @@ Claude Academy 日本語版「Claude APIを使った構築」の、レッスン�
 ## 一覧
 | セクション | レッスン | ファイル |
 |---|---|---|
-| 01 Claude APIへのアクセス | L01 APIへのアクセス | `01_accessing-claude-with-the-api/L01_accessing-the-api.md` |
-| 01 Claude APIへのアクセス | L02 APIキーの取得(+実機の環境設定の記録) | `01_accessing-claude-with-the-api/L02_getting-an-api-key.md` |
-| 01 Claude APIへのアクセス | L03 リクエストを送信する | `01_accessing-claude-with-the-api/L03_making-a-request.md` |
+| 01 APIを使ったClaudeへのアクセス | L01 APIへのアクセス | `01_accessing-claude-with-the-api/L01_accessing-the-api.md` |
+| 01 APIを使ったClaudeへのアクセス | L02 APIキーの取得(+実機の環境設定の記録) | `01_accessing-claude-with-the-api/L02_getting-an-api-key.md` |
+| 01 APIを使ったClaudeへのアクセス | L03 リクエストを送信する | `01_accessing-claude-with-the-api/L03_making-a-request.md` |
+| 01 APIを使ったClaudeへのアクセス | L04 マルチターン会話 | `01_accessing-claude-with-the-api/L04_multi-turn-conversations.md` |
