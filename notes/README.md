@@ -16,3 +16,4 @@ Claude Academy 日本語版「Claude APIを使った構築」の、レッスン�
 | 01 APIを使ったClaudeへのアクセス | L03 リクエストを送信する | `01_accessing-claude-with-the-api/L03_making-a-request.md` |
 | 01 APIを使ったClaudeへのアクセス | L04 マルチターン会話 | `01_accessing-claude-with-the-api/L04_multi-turn-conversations.md` |
 | 01 APIを使ったClaudeへのアクセス | L05 システムプロンプト | `01_accessing-claude-with-the-api/L05_system-prompts.md` |
+| 01 APIを使ったClaudeへのアクセス | L06 Temperature | `01_accessing-claude-with-the-api/L06_temperature.md` |
