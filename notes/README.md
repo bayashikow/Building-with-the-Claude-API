@@ -15,3 +15,4 @@ Claude Academy 日本語版「Claude APIを使った構築」の、レッスン�
 | 01 APIを使ったClaudeへのアクセス | L02 APIキーの取得(+実機の環境設定の記録) | `01_accessing-claude-with-the-api/L02_getting-an-api-key.md` |
 | 01 APIを使ったClaudeへのアクセス | L03 リクエストを送信する | `01_accessing-claude-with-the-api/L03_making-a-request.md` |
 | 01 APIを使ったClaudeへのアクセス | L04 マルチターン会話 | `01_accessing-claude-with-the-api/L04_multi-turn-conversations.md` |
+| 01 APIを使ったClaudeへのアクセス | L05 システムプロンプト | `01_accessing-claude-with-the-api/L05_system-prompts.md` |
