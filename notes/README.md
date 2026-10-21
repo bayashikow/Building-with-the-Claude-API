@@ -18,3 +18,4 @@ Claude Academy 日本語版「Claude APIを使った構築」の、レッスン�
 | 01 APIを使ったClaudeへのアクセス | L05 システムプロンプト | `01_accessing-claude-with-the-api/L05_system-prompts.md` |
 | 01 APIを使ったClaudeへのアクセス | L06 Temperature | `01_accessing-claude-with-the-api/L06_temperature.md` |
 | 01 APIを使ったClaudeへのアクセス | L07 レスポンスストリーミング | `01_accessing-claude-with-the-api/L07_response-streaming.md` |
+| 01 APIを使ったClaudeへのアクセス | L08 構造化データ | `01_accessing-claude-with-the-api/L08_structured-data.md` |
