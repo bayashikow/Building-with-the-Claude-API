@@ -22,3 +22,4 @@ Claude Academy 日本語版「Claude APIを使った構築」の、レッスン�
 | 02 プロンプトエンジニアリング技術 | L09 プロンプト評価 | `02_prompt-engineering-techniques/L09_prompt-evaluation.md` |
 | 02 プロンプトエンジニアリング技術 | L10 典型的な評価ワークフロー | `02_prompt-engineering-techniques/L10_a-typical-eval-workflow.md` |
 | 02 プロンプトエンジニアリング技術 | L11 テストデータセットの生成 | `02_prompt-engineering-techniques/L11_generating-test-datasets.md` |
+| 02 プロンプトエンジニアリング技術 | L12 評価の実行 | `02_prompt-engineering-techniques/L12_running-the-eval.md` |
