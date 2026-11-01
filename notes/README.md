@@ -26,3 +26,4 @@ Claude Academy 日本語版「Claude APIを使った構築」の、レッスン�
 | 02 プロンプトエンジニアリング技術 | L13 モデルベースの採点 | `02_prompt-engineering-techniques/L13_model-based-grading.md` |
 | 02 プロンプトエンジニアリング技術 | L14 コードベースの採点 | `02_prompt-engineering-techniques/L14_code-based-grading.md` |
 | 02 プロンプトエンジニアリング技術 | L15 プロンプトエンジニアリング | `02_prompt-engineering-techniques/L15_prompt-engineering.md` |
+| 02 プロンプトエンジニアリング技術 | L16 明確で直接的であること | `02_prompt-engineering-techniques/L16_being-clear-and-direct.md` |
