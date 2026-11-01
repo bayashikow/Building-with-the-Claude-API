@@ -1,6 +1,6 @@
 # L11 テストデータセットの生成(Generating Test Datasets)
 
-- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプトエンジニアリング技術」
+- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプト評価」
 - 出典: https://academy.claude.com/ja/courses/building-with-the-claude-api/generating-test-datasets (Claude Academy 日本語版、レッスン11/67、20分)
 - 読んだ日: 2026-10-24
 - 前のレッスン: 「典型的な評価ワークフロー」(L10)/ 次のレッスン: 「評価の実行」

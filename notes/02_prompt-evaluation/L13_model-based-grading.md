@@ -1,6 +1,6 @@
 # L13 モデルベースの採点(Model-Based Grading)
 
-- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプトエンジニアリング技術」
+- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプト評価」
 - 出典: https://academy.claude.com/ja/courses/building-with-the-claude-api/model-based-grading (Claude Academy 日本語版、レッスン13/67、15分)
 - 読んだ日: 2026-10-31
 - 前のレッスン: 「評価の実行」(L12)/ 次のレッスン: 「コードベースの採点」

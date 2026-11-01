@@ -1,6 +1,6 @@
 # L12 評価の実行(Running the Eval)
 
-- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプトエンジニアリング技術」
+- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプト評価」
 - 出典: https://academy.claude.com/ja/courses/building-with-the-claude-api/running-the-eval (Claude Academy 日本語版、レッスン12/67、15分)
 - 読んだ日: 2026-10-25
 - 前のレッスン: 「テストデータセットの生成」(L11)/ 次のレッスン: 「モデルベースの採点」

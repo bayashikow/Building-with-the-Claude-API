@@ -1,6 +1,6 @@
 # L16 明確で直接的であること(Being Clear and Direct)
 
-- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプトエンジニアリング技術」
+- コース: Claude APIを使った構築(Building with the Claude API)/ セクション3「プロンプトエンジニアリング技術」
 - 出典: https://academy.claude.com/ja/courses/building-with-the-claude-api/being-clear-and-direct (Claude Academy 日本語版、レッスン16/67、2分)
 - 読んだ日: 2026-11-01
 - 前のレッスン: 「プロンプトエンジニアリング」(L15)/ 次のレッスン: 「具体的であること」

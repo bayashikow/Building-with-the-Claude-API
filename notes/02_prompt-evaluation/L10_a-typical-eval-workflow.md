@@ -1,6 +1,6 @@
 # L10 典型的な評価ワークフロー(A Typical Eval Workflow)
 
-- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプトエンジニアリング技術」
+- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプト評価」
 - 出典: https://academy.claude.com/ja/courses/building-with-the-claude-api/a-typical-eval-workflow (Claude Academy 日本語版、レッスン10/67、10分)
 - 読んだ日: 2026-10-24
 - 前のレッスン: 「プロンプト評価」(L09)/ 次のレッスン: 「テストデータセットの生成」

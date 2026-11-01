@@ -1,6 +1,6 @@
 # L14 コードベースの採点(Code-Based Grading)
 
-- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプトエンジニアリング技術」
+- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプト評価」
 - 出典: https://academy.claude.com/ja/courses/building-with-the-claude-api/code-based-grading (Claude Academy 日本語版、レッスン14/67、15分)
 - 読んだ日: 2026-11-01
 - 前のレッスン: 「モデルベースの採点」(L13)/ 次のレッスン: 「プロンプト評価に関するクイズ」

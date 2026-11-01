@@ -1,6 +1,6 @@
 # L09 プロンプト評価(Prompt Evaluation)
 
-- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプトエンジニアリング技術」
+- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプト評価」
 - 出典: https://academy.claude.com/ja/courses/building-with-the-claude-api/prompt-evaluation (Claude Academy 日本語版、レッスン9/67、2分)
 - 読んだ日: 2026-10-24
 - 前のレッスン: 「APIを使用したClaudeへのアクセスに関するクイズ」/ 次のレッスン: 「典型的な評価ワークフロー」(L10)

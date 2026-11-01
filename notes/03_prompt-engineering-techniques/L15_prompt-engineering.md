@@ -1,6 +1,6 @@
 # L15 プロンプトエンジニアリング(Prompt Engineering)
 
-- コース: Claude APIを使った構築(Building with the Claude API)/ セクション2「プロンプトエンジニアリング技術」
+- コース: Claude APIを使った構築(Building with the Claude API)/ セクション3「プロンプトエンジニアリング技術」
 - 出典: https://academy.claude.com/ja/courses/building-with-the-claude-api/prompt-engineering (Claude Academy 日本語版、レッスン15/67、15分)
 - 読んだ日: 2026-11-01
 - 前のレッスン: 「プロンプト評価に関するクイズ」/ 次のレッスン: 「明確で直接的であること」
