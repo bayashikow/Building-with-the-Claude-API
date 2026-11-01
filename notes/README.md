@@ -29,3 +29,4 @@ Claude Academy 日本語版「Claude APIを使った構築」の、レッスン�
 | 03 プロンプトエンジニアリング技術 | L16 明確で直接的であること | `03_prompt-engineering-techniques/L16_being-clear-and-direct.md` |
 | 03 プロンプトエンジニアリング技術 | L17 具体的であること | `03_prompt-engineering-techniques/L17_being-specific.md` |
 | 03 プロンプトエンジニアリング技術 | L18 XMLタグで構造化する | `03_prompt-engineering-techniques/L18_structure-with-xml-tags.md` |
+| 03 プロンプトエンジニアリング技術 | L19 例を提供する | `03_prompt-engineering-techniques/L19_providing-examples.md` |
