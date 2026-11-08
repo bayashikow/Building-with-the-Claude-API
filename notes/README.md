@@ -33,3 +33,4 @@ Claude Academy 日本語版「Claude APIを使った構築」の、レッスン�
 | 04 Claudeでのツール使用 | L20 ツール使用の導入 | `04_tool-use-with-claude/L20_introducing-tool-use.md` |
 | 04 Claudeでのツール使用 | L21 プロジェクト概要 | `04_tool-use-with-claude/L21_project-overview.md` |
 | 04 Claudeでのツール使用 | L22 ツール関数 | `04_tool-use-with-claude/L22_tool-functions.md` |
+| 04 Claudeでのツール使用 | L23 ツールスキーマ | `04_tool-use-with-claude/L23_tool-schemas.md` |
