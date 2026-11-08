@@ -6,7 +6,7 @@
 - 前のレッスン: 「メッセージブロックの処理」(L24)/ 次のレッスン: 「Multi-turn conversations with tools」
 - 凡例: 特に印のない記述は、ページ本文の内容。【補足】は、ページ外の内容(私=Claudeの補足)。「質疑」は、学習中の私からの問いとYUTAの回答。
 - 注意: 本文テキストのみを要約した。ページの図(ツール結果ブロックの構造、複数呼び出し)は含まない。
-- 注意(演習): このレッスン単独の演習ではなく、L22〜L25 を合わせた1つの演習を作る(YUTAが選択、2026-11-08)。演習は、このノートの後に作る。
+- 演習: L22〜L25 を合わせた ex11 を実施した(2026-11-08)。記録は「実機での確認」を参照。
 
 ## 1. このレッスンの目的
 Claude のツール呼び出しの依頼に対して、関数を実行し、その結果を送り返して、ツール使用の流れを完成させる。
@@ -90,6 +90,49 @@ messages.append({
   - D: ID が無いと、結果と依頼を結びつけられない。複数の呼び出しがあると、取り違えの原因になり、API 側でもエラーになるおそれがある。
 - 補足: 「アシスタント=Claude の発言、ユーザー=アプリ側からの入力」という役割分担は、ここでも変わらない。ツールの結果は、アプリ側が Claude に渡す入力なので、`role` は `user`。
 
+### 質問2(振り返り1〜4): ex11 の振り返り
+- 1. 最初の応答の `stop_reason` と `content`
+  - YUTAの回答: 「tool_use」
+  - 評価: 正解。`content` は、ToolUse ブロックのみ(テキストブロックなし)だった。ページの例(テキスト+ToolUse)と違う。位置を決め打ちせず、種類で探す書き方が必要だった実例。
+- 2. Claude が渡した引数
+  - YUTAの回答: 「'date_format': '%H:%M:%S'」
+  - 評価: 正解。依頼した「HH:MM:SS」を、Claude が `strftime` の書式に変換して渡した。
+- 3. `tools` を外した最終リクエスト(任意の実験)
+  - YUTAの回答: 「エラーになりませんでした」
+  - 評価: 観察として有効。ページは「`tools` を含める必要がある」と書くが、今回の環境では成功した。扱いは下の「実機での確認」を参照。
+- 4. `tool_result` のメッセージの `role` が `user` の理由
+  - YUTAの回答: 「user のサーバから返された結果だから」
+  - 評価: 概ね正解。補足: `role: user` は、利用者本人のサーバーではなく、**Claude に入力を渡す側**(自分のアプリ)を表す。公式ドキュメントも、`user` メッセージはクライアント側の内容と `tool_result` を含み、`assistant` メッセージは AI が生成した内容と `tool_use` を含む、と説明している(要約)。
+
+## 実機での確認(YUTAの環境、2026-11-08)
+- ノートブック: `exercises\ex11_Tool-use-basics\tool-use-basics.ipynb`(ex10 のセットアップを引き継ぎ、TODO とヒントを入れた課題)。新しく覚えること: ツール使用の往復を1回、通して動かす。API 呼び出しは2回。モデルは `claude-haiku-5-5`。
+- TODO 1〜3 は、すべて正しく書けた。
+  - TODO 1: 入力検証つきの `get_current_datetime`。空の `date_format` で `ValueError`(メッセージは「date_format無しは受け付けられません」)。確認セルは「OK」。
+  - TODO 2: スキーマ(`name`・`description`・`input_schema`)。確認セルは「OK」。
+  - TODO 3: `tools` 付きの最初の呼び出し。`block.type == "tool_use"` で ToolUse ブロックを探した。
+- 最初の応答の実測: `stop_reason` は `tool_use`、`content` は `['tool_use']`(ToolUse ブロックのみ)。ブロックは `ToolUseBlock(id=..., caller=DirectCaller(type='direct'), input={'date_format': '%H:%M:%S'}, name='get_current_datetime', type='tool_use', toolset_name=None)`。`caller` と `toolset_name` の意味は、未確認(ドキュメントに、コンピューター操作・ブラウザ操作のツール群で `toolset_name` を使う記述があった。今回は関係しない)。
+- TODO 4 でのエラー:
+  ```
+  AttributeError: 'list' object has no attribute 'tool_use'
+  ---> "tool_use_id": response.content.tool_use.id,
+  ```
+  - 読み解き: `response.content` は list(ブロックの並び)で、`.tool_use` という属性は無い。ToolUse ブロックは、TODO 3 で `tool_use_block` に取り出してある。
+  - 同じセルで、`"content": "15:04:22"`(ページの例の値)が残っていた。エラーにならないが、実際の時刻と違う値を返してしまうので、`tool_output` に直した。
+  - 注意: このセルは、エラーの前に、アシスタントメッセージを `messages` に追加済みだった。そのまま再実行すると、同じメッセージが二重に追加され、後で 400 エラーになる。TODO 3 から実行し直して、履歴をリセットした(`messages = []`)。
+- 修正: `response.content[0].id` に直して動いた。ただ、位置の決め打ちなので、`tool_use_block.id` に再修正した。
+- 最終応答の実測: `stop_reason` は `end_turn`、`content` は `['text']`。本文は「現在の時刻は **15:34:21** です。」で、関数の出力(15:34:21)と一致した。
+
+  | 場面 | `stop_reason` | `content` |
+  |---|---|---|
+  | 最初の応答 | `tool_use` | ToolUse ブロックのみ |
+  | 最終応答 | `end_turn` | テキストブロックのみ |
+
+- この対応は、試験ガイドのエージェントループ(`tool_use` なら続け、`end_turn` で終える。Task Statement 1.1 の付近)の、最小の実例。
+- `tools` を外した最終リクエスト(任意の実験): エラーにならなかった。
+  - 事実: この環境(`claude-haiku-5-5`、2026-11-08)では、`tools` なしの最終リクエストが成功した。ページの「`tools` を含める必要がある」と食い違う。
+  - 確認できていない点: 常にそうなのか、モデルや API の版で変わるのか。公式ドキュメント(Handle tool calls、Troubleshooting tool use)には、この点の明示を見つけられなかった。実験で `tools` の行を実際に外して実行したかは、保存済みのノートブック(元に戻した状態)からは確認できない。
+  - 方針: 動いても、`tools` は含めたままにする。ドキュメントは、サーバーツールを使う再開時には、`tools` 配列を同じに保つよう案内している。
+
 ## 【補足】ページ外の内容(私の整理)
 ### 公式ドキュメントでの確認(確認日 2026-11-08)
 出典: [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls)(Claude Platform Docs)。以下は私による要約。
@@ -108,7 +151,7 @@ messages.append({
 
 ### 未確認の点
 - 「複数の `tool_result` を1つのユーザーメッセージにまとめる」規則は、このページには明示がない。並列ツール使用のページ(Parallel tool use)に書かれているはずだが、まだ読んでいない(未確認)。
-- 「フォローアップに `tools` を含める必要」(ページの記述)は、このドキュメントページでは確認していない。
+- 「フォローアップに `tools` を含める必要」(ページの記述)は、このドキュメントページでは確認していない。 実機では、`tools` なしでも成功した(「実機での確認」を参照)。
 
 ### ページのコードの注意点
 - `response.content[1]` は、「2番目のブロックが ToolUse」と決め打ち。テキストブロックが無い、または複数ある場合に、位置が変わる。`block.type == "tool_use"` で探すほうが安全(L24 と同じ、種類で判別する書き方)。
