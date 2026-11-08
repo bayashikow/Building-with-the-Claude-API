@@ -32,3 +32,4 @@ Claude Academy 日本語版「Claude APIを使った構築」の、レッスン�
 | 03 プロンプトエンジニアリング技術 | L19 例を提供する | `03_prompt-engineering-techniques/L19_providing-examples.md` |
 | 04 Claudeでのツール使用 | L20 ツール使用の導入 | `04_tool-use-with-claude/L20_introducing-tool-use.md` |
 | 04 Claudeでのツール使用 | L21 プロジェクト概要 | `04_tool-use-with-claude/L21_project-overview.md` |
+| 04 Claudeでのツール使用 | L22 ツール関数 | `04_tool-use-with-claude/L22_tool-functions.md` |
