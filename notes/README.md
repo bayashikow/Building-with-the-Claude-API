@@ -38,3 +38,4 @@ Claude Academy 日本語版「Claude APIを使った構築」の、レッスン�
 | 04 Claudeでのツール使用 | L25 ツール結果の送信 | `04_tool-use-with-claude/L25_sending-tool-results.md` |
 | 04 Claudeでのツール使用 | L26 Multi-turn conversations with tools | `04_tool-use-with-claude/L26_multi-turn-conversations-with-tools.md` |
 | 04 Claudeでのツール使用 | L27 複数ターンの実装 | `04_tool-use-with-claude/L27_implementing-multiple-turns.md` |
+| 04 Claudeでのツール使用 | L28 複数のツールを使用する | `04_tool-use-with-claude/L28_using-multiple-tools.md` |
