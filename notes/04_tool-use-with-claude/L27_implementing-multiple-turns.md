@@ -8,7 +8,7 @@
 - 注意: 本文テキストのみを要約した。ページの図(複数ツール呼び出しの構造、ツール結果ブロック)は含まない。
 - 注意(現行環境): ページの `chat` は `max_tokens` が 1000 で、`temperature` を渡す版(L26)。YUTAの環境では、ex11 までの `chat` を土台に直す。
 - 注意(ページの省略): ページの `run_tools` は途中まで(`return` がない)。結果ブロックのリストを返す処理は、自分で足す想定。
-- 注意(演習): このレッスン単独の演習は、まだ作っていない。次のレッスン(複数のツールを使用する)を確認したうえで、L26〜L28 を合わせた演習を検討する(YUTAが相談中)。
+- 注意(演習): このレッスン単独の演習は作らない。L26〜L28 を合わせた演習 ex12(`exercises/ex12_Multi-turn-tool-loop/multi-turn-tool-loop.ipynb`)を実施した(2026-11-14)。記録は、「実機での確認」にある。
 
 ## 1. このレッスンの目的
 Claude がツールを要求しなくなるまで続ける会話ループを実装する。`stop_reason` による継続の判定、複数ツールの処理、エラー処理、ツールのルーティングを理解する。
@@ -134,6 +134,48 @@ def run_tool(tool_name, tool_input):
   - C: `tool_result` が欠けると、次のリクエストが API のルール違反でエラーになる(「tool_use ids were found without tool_result blocks immediately after」)。
   - D: 失敗なのに `is_error: False` で内容が空だと、Claude は「成功して空の結果が返った」と解釈する。失敗の事実が伝わらず、誤った回答につながる(L22 の「静かな失敗」と同じ問題)。
 - 補足: エラーの文面は、「何が起きたか」「次に何を試すか」が分かるものが望ましい(L22・L25)。ページの `f"Error: {e}"` は最低限の形。ページの `try/except Exception` は、すべての例外を同じように扱う。実務では、再試行して直る失敗(一時的な通信エラー)と、直らない失敗(引数の誤り)を区別する設計もある。ページには書かれていない(私の整理)。
+
+## 実機での確認(演習 ex12)
+演習: `exercises/ex12_Multi-turn-tool-loop/multi-turn-tool-loop.ipynb`(L26〜L28 を合わせた演習。2026-11-14 実施)。モデルは `claude-haiku-5-5`。
+
+### 内容
+- 提供済み: ヘルパー関数、3つのツール(`get_current_datetime`、`add_duration_to_datetime`、`set_reminder`)の関数とスキーマ。
+- 穴埋め(YUTAが実装):
+  1. `run_tool`: 3つの分岐と、未登録のツール名を `ValueError` にする分岐。
+  2. `run_tools`: ToolUse の絞り込み、`tool_result` の組み立て、`try/except` での `is_error`、結果リストの `return`。
+  3. `run_conversation`: `stop_reason` による終了判定、履歴への追加、`max_turns` の安全装置(ページには無い、演習での設計)。
+- 確認: TODO 1・2 は API なしの確認セルで通過。TODO 3 以降は、実際に API を呼んで実行。
+
+### 観察した結果
+- 依頼「医者の予約のリマインダーを設定してください。2050年1月1日から177日後です。」
+  - ツールの順番: `add_duration_to_datetime`(`2050-01-01`、177 days)→ `set_reminder`。
+  - `stop_reason`: `tool_use` が2回、`end_turn` が1回。
+  - 日付計算の結果は `Monday, June 27, 2050`(ページの例と同じ)。
+- `set_reminder` の `tool_result` は、`content` が `'null'`、`is_error: False`(関数が何も返さないため)。Claude はそれを成功と受け取った。時刻の指定がないのに、Claude が `09:00:00` を選んで設定し、最終応答で「午前9時に設定した」と伝えた。
+- 未対応の単位(`fortnights`)を使わせる依頼: `is_error: True` の `tool_result`(`Error: Unsupported time unit: fortnights`)を受けた Claude は、**再試行せず、利用者にエラーを説明した**。使える単位を示し、`weeks` で 4 にする代案を挙げて、実行してよいかを尋ねた。
+  - 公式ドキュメントでは、無効な呼び出しに対して Claude が補って再試行すると説明されている(L25 のノート)。今回は動きが違った。利用者が単位を明示していたためと推測するが、確かではない。1回の実行だけで、毎回同じとは言えない。
+- 応答の `content` に `ThinkingBlock`(思考のブロック)が含まれていた。ループは `response` をそのまま履歴に足すので、一緒に保たれる。表示用の `show_history` は、`tool_use` / `tool_result` / `text` だけを表示する。
+
+### つまずいた点と、わかったこと
+- TODO 2 の確認で `TypeError: 'types.SimpleNamespace' object is not subscriptable`: ToolUse ブロックは、辞書ではなくオブジェクトで、`block.type`・`block.name`・`block.input`・`block.id` と、属性で読む。一方、`tool_result` は、自分で `{...}` と書く辞書なので、`block["key"]` で読む。
+- 続けて `AssertionError`(`content` が `"Error:` から始まっていた): 失敗側の `content` を `json.dumps(f"Error: {e}")` と書いていたため、前後に `"` が付いた。`f"Error: {e}"` は、最初から文字列なので、`json.dumps` は要らない。`json.dumps` は、ツールの出力が辞書やリストのとき、文字列にするために使う。
+
+### 質疑(演習後の確認)
+質問1: `stop_reason` が `tool_use` / `end_turn` になった回数と、ツールの順番は。
+- YUTAの回答: `tool_use` 2回、`end_turn` 1回。
+- 評価: 回数は正解。ツールの順番(`add_duration_to_datetime` → `set_reminder`)の記載が抜けていた。後のツールの入力は、先のツールの結果から作られる。回数を決め打ちにできない理由(L26)と同じ。
+
+質問2: `set_reminder` の `tool_result` の `content` は何か。成功と受け取ったか。どう直すか。
+- YUTAの回答: `'null'`、成功とした、失敗した場合は `is_error` を `True` にする。
+- 評価: 前半は正解。「どう直すか」は、半分。失敗時に `is_error: True` を返すことは、`run_tools` の `except` で、すでにできている(`set_reminder` が例外を出すことが前提)。ずれている点は、**成功時の戻り値が空**なこと。`{"status": "ok", "timestamp": ..., "content": ...}` のような確認できる値を返せば、Claude が設定内容を確かめられる。今回の実測でも、Claude が自分で選んだ `09:00:00` を、最終応答に述べていた。L22 の「静かな失敗」と近い話。
+
+質問3: `is_error: True` を受けた Claude は、次に何をしたか。
+- YUTAの回答: 利用者に説明した。
+- 評価: 正解。代案(`weeks` で 4)も示した。上の「観察した結果」の補足のとおり、再試行する場合もある(確かでない)。
+
+質問4: `max_turns` は、なぜ必要か。
+- YUTAの回答: ツール失敗が連続した場合などに、多数の再試行を行う可能性がある。
+- 評価: 方向は正解。「ツール失敗の連続」は、止まらなくなる場面の1つ。ほかに、結果の返し方の不具合で同じ依頼が繰り返される場合や、Claude が必要以上にツールを呼び続ける場合がある。上限が無いと、API の呼び出し回数、トークン、待ち時間が、止まるまで増え続ける。ex07 のリトライ上限と同じ考え方。
 
 ## 【補足】ページ外の内容(私の整理)
 - **ex11 の実測との対応**: 最初の応答は `stop_reason == "tool_use"`、最終応答は `end_turn` だった(L25 のノート参照)。ページの `!= "tool_use"` で終了する判定は、`end_turn` 以外の終了理由(`max_tokens` など)も「終わり」と扱う。`max_tokens` で打ち切られた場合に、不完全な回答のまま終わる点には注意が要る(ex09 の経験。ページには書かれていない)。
